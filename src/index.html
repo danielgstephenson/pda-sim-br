@@ -7,9 +7,30 @@
     <title>PDA</title>
   </head>
   <body>
-    <div id="interfaceDiv">
-      <svg id="svg"></svg>
-      <script type='module' src="index.ts"></script>
+    <div id="controlsDiv">
+      <div>Groups: 
+        <input id="groupCountInput" class="parameterInput" type="number" min="1" value="1" step="1">
+      </div>
+      <div>Speed: 
+        <input id="speedInput" class="parameterInput" type="number" min="0" value="0.2" step="0.1">
+      </div>
+      <div>Time: 
+        <span id="timeSpan">0</span>
+      </div>
+      <button id="simulateButton">Start</button>
     </div>
+    <div class="treatmentDiv">
+      <div>&#946; = 
+        <input id="betaInput1" class="parameterInput" type="number" min="0.1" value="0.2" step="0.1">
+      </div>
+      <canvas id="canvas1"></canvas>
+    </div>
+    <div class="treatmentDiv">
+      <div>&#946; = 
+        <input id="betaInput2" class="parameterInput" type="number" min="0.1" value="7" step="0.1">
+      </div>
+      <canvas id="canvas2"></canvas>  
+    </div>
+    <script type='module' src="index.ts"></script>
   </body>
 </html>
