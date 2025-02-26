@@ -6,41 +6,57 @@ export class Renderer {
   context: CanvasRenderingContext2D
   playerColor = 'rgb(0,170,0)'
   eqColor = 'rgb(0,100,255)'
-  box = { x: 0.1, y: 0.1, width: 0.8, height: 0.8 }
+  size = 800
+  box = { x: 0, y: 0, width: 0, height: 0 }
+  Y1 = 0
+  Y2 = 0
+  D1 = 0
+  D2 = 0
+  A1 = 0
+  A2 = 0
 
   constructor (treatment: Treatment, canvas: HTMLCanvasElement) {
     this.treatment = treatment
     this.canvas = canvas
     this.context = this.canvas.getContext('2d') as CanvasRenderingContext2D
+    this.box.x = 0.15 * this.size
+    this.box.y = 0.15 * this.size
+    this.box.width = 0.7 * this.size
+    this.box.height = 0.7 * this.size
+    this.Y1 = this.box.x + this.box.width * 0.5
+    this.Y2 = this.box.y
+    this.D1 = this.box.x
+    this.D2 = this.box.y + this.box.height * Math.sqrt(0.75)
+    this.A1 = this.box.x + this.box.width
+    this.A2 = this.box.y + this.box.height * Math.sqrt(0.75)
     this.draw()
   }
 
   draw (): void {
     window.requestAnimationFrame(() => this.draw())
     this.setupCanvas()
-    const Y1 = this.box.x + this.box.width * 0.5
-    const Y2 = this.box.y
-    const D1 = this.box.x
-    const D2 = this.box.y + this.box.height * Math.sqrt(0.75)
-    const A1 = this.box.x + this.box.width
-    const A2 = this.box.y + this.box.height * Math.sqrt(0.75)
+    this.context.fillStyle = 'black'
+    this.context.textAlign = 'center'
+    this.context.textBaseline = 'middle'
+    this.context.font = '5vmin sans-serif'
+    this.context.fillText('Y', this.Y1, this.Y2 - 30)
+    this.context.fillText('D', this.D1 - 30, this.D2 + 30)
+    this.context.fillText('A', this.A1 + 30, this.A2 + 30)
     this.context.lineJoin = 'round'
-    this.context.lineWidth = 0.01
+    this.context.lineWidth = 10
     this.context.strokeStyle = 'black'
     this.context.beginPath()
-    this.context.moveTo(Y1, Y2)
-    this.context.lineTo(D1, D2)
-    this.context.lineTo(A1, A2)
+    this.context.moveTo(this.Y1, this.Y2)
+    this.context.lineTo(this.D1, this.D2)
+    this.context.lineTo(this.A1, this.A2)
     this.context.closePath()
     this.context.stroke()
-    this.context.fillStyle = this.playerColor
   }
 
   setupCanvas (): void {
-    this.canvas.width = 800
-    this.canvas.height = 800
     this.context.resetTransform()
+    this.canvas.width = this.size
+    this.canvas.height = this.size
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    this.context.scale(this.canvas.width, this.canvas.width)
   }
 }
