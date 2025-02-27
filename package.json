@@ -12,11 +12,6 @@
   },
   "license": "ISC",
   "author": "",
-  "targets": {
-    "dev": {
-      "publicUrl": "./dist"
-    }
-  },
   "scripts": {
     "build": "npx parcel serve ./src/index.html --public-url ./ --dist-dir dist/deploy",
     "dev": "npx parcel serve ./src/index.html --port 3000 --dist-dir dist/test"
