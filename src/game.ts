@@ -60,7 +60,7 @@ function getPolicyOptions (xj: Policy, B: number): Policy[] {
 }
 
 export function getBestResponse (xj: Policy, B: number): Policy {
-  if (xj.a <= 0) {
+  if (xj.a < 0.01) {
     const xia = max(0, sqrt(xj.y * xj.d) - B * xj.d)
     return {
       y: X - xia,
@@ -71,6 +71,11 @@ export function getBestResponse (xj: Policy, B: number): Policy {
   const policyOptions = getPolicyOptions(xj, B)
   const payoffs = policyOptions.map(xi => getPayoff(xi, xj, B))
   const bestResponse = policyOptions[whichMax(payoffs)]
+  if (bestResponse == null) {
+    const xjString = `(${xj.y},${xj.d},${xj.a})`
+    console.log('policyOptions.length =', policyOptions.length)
+    throw new Error(`invalid best response to ${xjString}`)
+  }
   return bestResponse
 }
 
